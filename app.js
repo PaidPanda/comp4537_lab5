@@ -9,7 +9,7 @@ const OPTIONS = "OPTIONS";
 
 let requestCount = 0;
 const port = process.env.PORT || 3000;
-const ALLOWED_ORIGIN = "https://genuine-concha-06c14a.netlify.app/";
+const ALLOWED_ORIGIN = "https://genuine-concha-06c14a.netlify.app";
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
