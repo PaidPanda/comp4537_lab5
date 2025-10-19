@@ -8,7 +8,7 @@ const POST = "POST";
 const OPTIONS = "OPTIONS";
 
 let requestCount = 0;
-// const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const ALLOWED_ORIGINS = "*";
 
 const db = mysql.createConnection({
