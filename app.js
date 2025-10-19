@@ -122,6 +122,8 @@ class App {
 
   // fuction to handle POST /patient requests
   handlePost(req, res, body) {
+    //testing
+    console.log("POST body:", body);
     requestCount++;
 
     try {
