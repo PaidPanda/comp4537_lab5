@@ -1,7 +1,7 @@
 const http = require("http");
 const url = require("url");
 const STRINGS = require("./lang/messages/en/user.js");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const GET = "GET";
 const POST = "POST";
@@ -9,29 +9,30 @@ const OPTIONS = "OPTIONS";
 
 let requestCount = 0;
 const port = process.env.PORT || 3000;
-const ALLOWED_ORIGINS = "*";
+const ALLOWED_ORIGIN = "*";
 
 const db = mysql.createConnection({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
-    port: process.env.DB_PORT || 3306,
-    database: process.env.DB_NAME || "comp4537_lab5",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
     multipleStatements: true
 });
 
 db.connect((err) => {
     if (err) {
-        throw err;
+        console.error("Error connecting to database:", err);
+        return;
     }
     console.log("Connected to database!");
-    let sql = "INSERT INTO patient(name, dateOfBirth) VALUES ('Elon Musk', '1999-01-01')";
-    db.query(sql, (err, result) => {
-        if (err) {
-            throw err;
-        }
-        console.log("1 record inserted");
-    });
+    // let sql = "INSERT INTO patient(name, dateOfBirth) VALUES ('Elon Musk', '1999-01-01')";
+    // db.query(sql, (err, result) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     console.log("1 record inserted");
+    // });
 });
 
 // main application class
@@ -71,11 +72,25 @@ class App {
         res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
         res.setHeader("Content-Type", "application/json");
 
-        // check database connection state
-        if (db.state === "disconnected") {
-            res.writeHead(503);
-            res.end(JSON.stringify({ message: STRINGS.dbDisconnect }));
-            return;
+        // // check database connection state
+        // if (db.state === "disconnected") {
+        //     res.writeHead(503);
+        //     res.end(JSON.stringify({ message: STRINGS.dbDisconnect }));
+        //     return;
+        // }
+
+        // test database connection on /testdb route
+        if (method === GET && path ==="/testdb") {
+          db.query("SELECT 1+1 AS result", (err, results) => {
+            if (err) {
+              res.writeHead(500);
+              res.end(JSON.stringify({ message: "Test failed", error: err.message }));
+            } else {
+              res.writeHead(200);
+              res.end(JSON.stringify({ message: "Test successful", result: results[0].result }));
+            }
+          });
+          return;
         }
 
         // check if client request is POST to /patient
