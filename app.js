@@ -17,7 +17,8 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
-    multipleStatements: true
+    multipleStatements: true,
+    timezone: "Z"
 });
 
 db.connect((err) => {
@@ -26,13 +27,6 @@ db.connect((err) => {
         return;
     }
     console.log("Connected to database!");
-    // let sql = "INSERT INTO patient(name, dateOfBirth) VALUES ('Elon Musk', '1999-01-01')";
-    // db.query(sql, (err, result) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     console.log("1 record inserted");
-    // });
 });
 
 // main application class
@@ -71,13 +65,6 @@ class App {
         // set common headers for all responses (all non-OPTIONS requests)
         res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
         res.setHeader("Content-Type", "application/json");
-
-        // // check database connection state
-        // if (db.state === "disconnected") {
-        //     res.writeHead(503);
-        //     res.end(JSON.stringify({ message: STRINGS.dbDisconnect }));
-        //     return;
-        // }
 
         // test database connection on /testdb route
         if (method === GET && path ==="/testdb") {
