@@ -149,7 +149,7 @@ class App {
         });
 
         // prepare SQL INSERT statement
-        const sql = "INSERT INTO patient (name, dateOfBirth) VALUES ?";
+        const sql = "INSERT INTO patient (name, dateOfBirth) VALUES (?, STR_TO_DATE(?, '%Y-%m-%d'))";
 
         // execute the query
         db.query(sql, [values], (err, result) => {
