@@ -11,6 +11,8 @@ const STRINGS = {
     invalidPost: "POST requests only support INSERT queries",
     successGet: "SELECT query executed successfully",
     successPost: "INSERT query executed successfully",
+    invalidExecution: "Error executing query",
+    invalidPostFormat: "POST request body must contain a 'body' field"
 }
 
 module.exports = STRINGS

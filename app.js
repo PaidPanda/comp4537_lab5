@@ -176,7 +176,7 @@ class App {
         });
     } catch (err) {
         res.writeHead(400);
-        res.end(JSON.stringify({ message: err.message }));
+        res.end(JSON.stringify({ message: STRINGS.invalidPostFormat, error: err.message }));
     }
   }
 
@@ -229,7 +229,7 @@ class App {
         // handle query errors
         if (err) {
             res.writeHead(400);
-            return res.end(JSON.stringify({ message: err.message }));
+            return res.end(JSON.stringify({ message: STRINGS.invalidExecution }));
         }
 
         // respond with success message if GET or POST request is successful
