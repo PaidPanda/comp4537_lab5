@@ -145,7 +145,7 @@ class App {
                 || typeof patient.dateOfBirth !== "string") {
                 throw new Error(STRINGS.invalidData);
             }
-            return [patient.name.trim(), patient.dateOfBirth.trim()];
+            return [patient.name.trim(), patient.dateOfBirth.slice(0, 10)]; // ensure date is in 'YYYY-MM-DD' format
         });
 
         // prepare SQL INSERT statement
