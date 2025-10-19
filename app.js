@@ -9,7 +9,7 @@ const OPTIONS = "OPTIONS";
 
 let requestCount = 0;
 const port = process.env.PORT || 3000;
-const ALLOWED_ORIGIN = "*";
+const ALLOWED_ORIGIN = "https://genuine-concha-06c14a.netlify.app/";
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -93,15 +93,15 @@ class App {
           return;
         }
 
-        // check if client request is POST to /patient
-        if (method === POST && path === "/patient") {
+        // check if client request is POST to /sql
+        if (method === POST && path === "/sql") {
             this.handlePost(req, res, body);
             return;
         }
 
-        // check if client request is GET to /patient
-        if (method === GET && path === "/patient") {
-            this.handleGet(req, res, body);
+        // check if client request is GET to /sql
+        if (method === GET && path === "/sql") {
+            this.handleGet(req, res, query);
             return;
         }
         
