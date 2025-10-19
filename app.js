@@ -137,7 +137,7 @@ class App {
 
         // prepare values for bulk insert
         const values = queryArray.map(patient => {
-            if (!patient.name || !patient.dateOfBirth || typeof patien.name !== "string" 
+            if (!patient.name || !patient.dateOfBirth || typeof patient.name !== "string" 
                 || typeof patient.dateOfBirth !== "string") {
                 throw new Error(STRINGS.invalidData);
             }
