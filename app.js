@@ -20,7 +20,6 @@ const db = mysql.createConnection({
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
     multipleStatements: true,
-    // timezone: "Z"
 });
 
 db.connect((err) => {
@@ -147,7 +146,7 @@ class App {
                 || typeof patient.dateOfBirth !== "string") {
                 throw new Error(STRINGS.invalidData);
             }
-            return [patient.name.trim(), patient.dateOfBirth.slice(0, 10)]; // ensure date is in 'YYYY-MM-DD' format
+            return [patient.name.trim(), patient.dateOfBirth.trim()];
         });
 
         // prepare SQL INSERT statement
@@ -225,9 +224,15 @@ class App {
 
         // respond with success message if GET or POST request is successful
         if (queryType === "SELECT") {
+          const formattedResults = results.map(row => {
+            return {
+              ...row,
+              dateOfBirth: row.dateOfBirth ? row.dateOfBirth.toISOString().slice(0, 10) : null
+            }
+          });
             res.writeHead(200);
             return res.end(JSON.stringify({ message: STRINGS.successGet, 
-              results: results }));
+              results: formattedResults }));
         } else {
             res.writeHead(201);
             return res.end(JSON.stringify({ message: STRINGS.successPost, 
