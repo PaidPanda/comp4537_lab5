@@ -235,10 +235,14 @@ class App {
         // respond with success message if GET or POST request is successful
         if (queryType === "SELECT") {
             res.writeHead(200);
-            return res.end(JSON.stringify({ message: STRINGS.successGet }));
+            return res.end(JSON.stringify({ message: STRINGS.successGet, 
+              results: results }));
         } else {
             res.writeHead(201);
-            return res.end(JSON.stringify({ message: STRINGS.successPost }));
+            return res.end(JSON.stringify({ message: STRINGS.successPost, 
+              affectedRows: results.affectedRows,
+              insertId: results.insertId
+             }));
         }
     });
   }
