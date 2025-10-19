@@ -94,13 +94,13 @@ class App {
         }
 
         // check if client request is POST to /sql
-        if (method === POST && path === "/sql") {
+        if (method === POST && path.endsWith("/sql")) {
             this.handlePost(req, res, body);
             return;
         }
 
         // check if client request is GET to /sql
-        if (method === GET && path === "/sql") {
+        if (method === GET && path.endsWith("/sql")) {
             this.handleGet(req, res, query);
             return;
         }
