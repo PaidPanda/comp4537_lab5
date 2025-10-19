@@ -11,7 +11,7 @@ const STRINGS = {
     invalidPost: "POST requests only support INSERT queries",
     successGet: "SELECT query executed successfully",
     successPost: "INSERT query executed successfully",
-    invalidExecution: "Error executing query",
+    invalidExecution: "Error executing query due to invalid query format",
     invalidPostFormat: "POST request body must contain a 'body' field"
 }
 
