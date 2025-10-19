@@ -1,3 +1,5 @@
+// ChatGPT was used for guidance and clarification in developing this code.
+
 const http = require("http");
 const url = require("url");
 const STRINGS = require("./lang/messages/en/user.js");
@@ -149,7 +151,7 @@ class App {
         });
 
         // prepare SQL INSERT statement
-        const sql = "INSERT INTO patient (name, dateOfBirth) VALUES (?, STR_TO_DATE(?, '%Y-%m-%d'))";
+        const sql = "INSERT INTO patient (name, dateOfBirth) VALUES ?";
 
         // execute the query
         db.query(sql, [values], (err, result) => {
